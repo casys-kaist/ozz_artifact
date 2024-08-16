@@ -1,0 +1,32 @@
+From 1f08a7e477aa1ba1c4e4bb10d48f1e1a8653b2e0 Mon Sep 17 00:00:00 2001
+From: Yewon Choi <woni9911@gmail.com>
+Date: Tue, 20 Aug 2024 06:42:20 +0000
+Subject: [PATCH] Skip memory check
+
+It stucks even though the machine has enough memory. Temporariliy skip this process.
+---
+ scripts/config-run | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/scripts/config-run b/scripts/config-run
+index 6a93c5d..2eef612 100755
+--- a/scripts/config-run
++++ b/scripts/config-run
+@@ -191,10 +191,10 @@ then	MB=$TMP
+ fi
+ # Certain machines tend to barf when you try and bcopy 8MB.
+ # Figure out how much we can use.
+-echo "Checking to see if you have $MB MB; please wait for a moment..."
+-MB=`../bin/$OS/memsize $MB`
+-MB=`../bin/$OS/memsize $MB`
+-MB=`../bin/$OS/memsize $MB`
++# echo "Checking to see if you have $MB MB; please wait for a moment..."
++# MB=`../bin/$OS/memsize $MB`
++# MB=`../bin/$OS/memsize $MB`
++# MB=`../bin/$OS/memsize $MB`
+ if [ `expr $SYNC_MAX \* $MB` -gt `expr $TOTAL_MEM` ]
+ then
+ 	MB=`expr $TOTAL_MEM / $SYNC_MAX`
+-- 
+2.17.1
+
